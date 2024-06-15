@@ -1,9 +1,7 @@
 #pragma once
 #include <stdio.h>
 
-extern int len_mem_fis;
-extern int len_page;
-extern int max_len_logic_mem;
+#define LENGHT_PAGE 0
 
 void init_system();
 

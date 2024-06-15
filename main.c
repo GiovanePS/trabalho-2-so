@@ -2,7 +2,7 @@
 
 int main(void) {
 
-  init_system();
+  init_system();  
 
   return 0;
 }

@@ -1,18 +1,24 @@
 #include <stdio.h>
+#include <time.h>
+#include <stdlib.h>
 
 #include "system.h"
 
 void init_system() {
-  print_interface();
-  int option;
-  printf("Opção: ");
-  scanf("%d", &option);
+  srand(time(NULL));
+  
+  while (1) {
+    print_interface();
+    int option;
+    printf("Opção: ");
+    scanf("%d", &option);
 
-  switch(option) {
-    case 1:
-    default:
-      return;
-      break;
+    switch(option) {
+      case 1:
+        break;
+      default:
+        return;
+    }
   }
 }
 

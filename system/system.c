@@ -15,9 +15,12 @@ void init_system() {
 
     switch(option) {
       case 1:
+        printf("Memória sendo vizualizada.");
         break;
-      default:
+      case 0:
         return;
+      default:
+        break;
     }
   }
 }
@@ -26,5 +29,5 @@ void print_interface() {
   printf("[1] Visualizar memória.\n");
   printf("[2] Criar processo.\n");
   printf("[3] Visualizar tabela de páginas.\n");
-  printf("[4] Sair.\n");
+  printf("[0] Sair.\n");
 }

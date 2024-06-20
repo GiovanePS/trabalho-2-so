@@ -1,7 +1,7 @@
 #pragma once
 
-#define MAX_PROCESS_MEMORY_SIZE 128 // MAX PROCESS LENGTH
-#define FRAMEPAGE_SIZE 4 // FRAME SIZE
+#define MAX_LOGICAL_MEMORY_SIZE 128 // MAX PROCESS LENGTH
+#define FRAMEPAGE_SIZE 4            // FRAME SIZE
 
 typedef struct {
   short int is_free;
@@ -15,6 +15,9 @@ typedef struct {
   char *logical_memory;
 } Process_t;
 
-int pid_count = 0;
-
-Process_t *create_process();
+/*
+ * @param pid The arbitrary process id for the new process
+ * @param size The size in bytes of the process
+ * @return The process created
+ */
+Process_t *create_process(int pid, int size);

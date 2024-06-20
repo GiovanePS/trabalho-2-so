@@ -1,29 +1,44 @@
+#include <stdbool.h>
 #include <stdio.h>
-#include <stdlib.h>
-#include <time.h>
 
 #include "system.h"
 
 void init_system() {
-  srand(time(NULL));
-
   while (1) {
+    printf("[1] Visualizar memória.\n");
+    printf("[2] Criar processo.\n");
+    printf("[3] Visualizar tabela de páginas.\n");
+    printf("[0] Sair.\n");
+
     // init_physical_memory();
     print_interface();
     int option;
-    printf("Opção: ");
+    printf("Option: ");
     scanf("%d", &option);
 
     switch (option) {
     case 1:
-      printf("Memória sendo vizualizada.");
+      printf("Memória sendo vizualizada.\n");
       break;
     case 2:
-      // create_process();
-      printf("Processo criado!");
+      int pid, size;
+      printf("Enter a PID number: ");
+      scanf("%d", &pid);
+      while (1) {
+        printf("Enter a size to the process: ");
+        scanf("%d", &size);
+        if (size > MAX_LOGICAL_MEMORY_SIZE) {
+          printf("The size entered exceed memory limit! Enter a size lower "
+                 "than %d.\n",
+                 MAX_LOGICAL_MEMORY_SIZE);
+        } else {
+          printf("Processo criado!");
+          break;
+        }
+      }
       break;
     case 3:
-      printf("Tabela sendo vizualizada");
+      printf("Tabela sendo vizualizada.\n");
     case 0:
       return;
     default:
@@ -32,9 +47,4 @@ void init_system() {
   }
 }
 
-void print_interface() {
-  printf("[1] Visualizar memória.\n");
-  printf("[2] Criar processo.\n");
-  printf("[3] Visualizar tabela de páginas.\n");
-  printf("[0] Sair.\n");
-}
+void print_interface() {}

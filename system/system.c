@@ -16,12 +16,13 @@ void init_system() {
     printf("Option: ");
     scanf("%d", &option);
 
+    int pid;
+    int size;
     switch (option) {
     case 1:
       printf("Memória sendo vizualizada.\n");
       break;
     case 2:
-      int pid, size;
       printf("Enter a PID number: ");
       scanf("%d", &pid);
       while (1) {
@@ -34,13 +35,14 @@ void init_system() {
         } else {
           create_process(pid, size);
           printf("Process created!\n");
-          printf("Least memory allocated: %d\n", least_free_frame);
           break;
         }
       }
       break;
     case 3:
-      printf("Tabela sendo vizualizada.\n");
+      printf("Enter a PID: ");
+      scanf("%d", &pid);
+      show_table_page(pid);
       break;
     case 0:
       return;

@@ -13,6 +13,7 @@ typedef struct {
   int size;
   char *logical_memory;
   Page_table_entry_t *page_table;
+  struct Process_t *next_process;
 } Process_t;
 
 /*
@@ -29,3 +30,5 @@ void init_logical_memory(Process_t *process);
 void init_table_page(Process_t *process);
 
 void show_table_page(int pid);
+
+void include_process(Process_t *process);

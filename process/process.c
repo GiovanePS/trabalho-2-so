@@ -4,14 +4,18 @@
 #include <stdlib.h>
 
 #define MAX_PROCESSES PHYSICAL_MEMORY_SIZE / MAX_LOGICAL_MEMORY_SIZE
-Process_t processes[MAX_PROCESSES];
+
+Process_t *head_process;
 int num_processes;
+
+static void search_process(int pid);
 
 void create_process(int pid, int size) {
   int total_pages = size / PAGE_SIZE;
   Process_t new_process = {pid, size};
   init_logical_memory(&new_process);
   init_table_page(&new_process);
+  include_process(&new_process);
 }
 
 void init_logical_memory(Process_t *process) {
@@ -20,7 +24,7 @@ void init_logical_memory(Process_t *process) {
   for (int i = 0; i < process->size; i++) {
     process->logical_memory[i] = n_teste++ % 26 + 65;
     // printf("%c\n", process->logical_memory[i]);
-    //  rand() % 95 + 33; // Randomly set only printable chars
+    //  rand() % 95 + 33; // Randomly set only printable chars without space
   }
 }
 
@@ -51,3 +55,17 @@ void show_table_page(int pid) {
     }
   }
 }
+
+void include_process(Process_t *process) {
+  if (head_process == NULL) {
+    head_process = process;
+    return;
+  }
+
+  while (process->next_process != NULL) {
+  }
+
+  num_processes++;
+}
+
+static void search_process(int pid) {}

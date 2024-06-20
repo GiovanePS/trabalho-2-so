@@ -1,16 +1,18 @@
-#include "../memory/memory.h"
+#pragma once
+#define MAX_PROCESS_MEMORY_SIZE 128 // MAX PROCESS LENGTH
 
 typedef struct {
   short int is_free;
-  int value;
+  int pointed_frame;
 } Page_table_t;
 
 typedef struct {
   int pid;
   int size;
-  Page_table_t* page_table;
+  Page_table_t *page_table;
+  char *logical_memory;
 } Process_t;
 
 int pid_count = 0;
 
-Process_t* create_process();
+Process_t *create_process();

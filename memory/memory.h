@@ -1,9 +1,8 @@
 #define PHYSICAL_MEMORY_SIZE 1024
-#define FRAMEPAGE_SIZE 16
+#define FRAMEPAGE_SIZE 4
 
-extern char* physical_memory;
+char *physical_memory;
+int total_frames;
 
 void init_physical_memory();
 void memory_allocate();
-
-void init_logical_memory(int size);

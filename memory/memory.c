@@ -1,17 +1,9 @@
-#include <malloc.h>
 #include "memory.h"
-
-char physical_memory[PHYSICAL_MEMORY_SIZE / FRAMEPAGE_SIZE];
+#include <malloc.h>
 
 void init_physical_memory() {
-  for (int i = 0; i < PHYSICAL_MEMORY_SIZE / FRAMEPAGE_SIZE; i++) {
-    physical_memory[i];
-  }
+  total_frames = PHYSICAL_MEMORY_SIZE / FRAMEPAGE_SIZE;
+  physical_memory = (char *)malloc(total_frames * sizeof(char));
 }
 
-void memory_allocate() {
-}
-
-void init_logical_memory(int size) {
-
-}
+void memory_allocate() {}

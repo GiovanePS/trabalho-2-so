@@ -1,8 +1,10 @@
 #include <stdbool.h>
+#include <stdio.h>
 
 #include "system.h"
 
 void init_system() {
+  init_physical_memory();
   while (1) {
     printf("\n[1] Show memory.\n");
     printf("[2] Create process.\n");
@@ -32,6 +34,7 @@ void init_system() {
         } else {
           create_process(pid, size);
           printf("Process created!\n");
+          printf("Least memory allocated: %d\n", least_free_frame);
           break;
         }
       }

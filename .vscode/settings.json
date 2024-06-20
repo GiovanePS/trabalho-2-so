@@ -1,0 +1,7 @@
+{
+    "files.associations": {
+        "*.css": "tailwindcss",
+        "memory.h": "c",
+        "process.h": "c"
+    }
+}

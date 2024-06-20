@@ -8,7 +8,7 @@ void init_system() {
   srand(time(NULL));
 
   while (1) {
-    init_physical_memory();
+    // init_physical_memory();
     print_interface();
     int option;
     printf("Opção: ");
@@ -19,6 +19,7 @@ void init_system() {
       printf("Memória sendo vizualizada.");
       break;
     case 2:
+      // create_process();
       printf("Processo criado!");
       break;
     case 3:

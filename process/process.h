@@ -1,5 +1,7 @@
 #pragma once
+
 #define MAX_PROCESS_MEMORY_SIZE 128 // MAX PROCESS LENGTH
+#define FRAMEPAGE_SIZE 4 // FRAME SIZE
 
 typedef struct {
   short int is_free;

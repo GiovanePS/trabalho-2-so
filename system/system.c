@@ -1,17 +1,15 @@
 #include <stdbool.h>
-#include <stdio.h>
 
 #include "system.h"
 
 void init_system() {
   while (1) {
-    printf("[1] Visualizar memória.\n");
-    printf("[2] Criar processo.\n");
-    printf("[3] Visualizar tabela de páginas.\n");
-    printf("[0] Sair.\n");
+    printf("[1] Show memory.\n");
+    printf("[2] Create process.\n");
+    printf("[3] Show page table.\n");
+    printf("[0] Exit.\n");
 
     // init_physical_memory();
-    print_interface();
     int option;
     printf("Option: ");
     scanf("%d", &option);
@@ -29,10 +27,10 @@ void init_system() {
         scanf("%d", &size);
         if (size > MAX_LOGICAL_MEMORY_SIZE) {
           printf("The size entered exceed memory limit! Enter a size lower "
-                 "than %d.\n",
+                 "than %d bytes.\n",
                  MAX_LOGICAL_MEMORY_SIZE);
         } else {
-          printf("Processo criado!");
+          printf("Process created!");
           break;
         }
       }
@@ -42,9 +40,8 @@ void init_system() {
     case 0:
       return;
     default:
+      printf("Invalid choice!\n");
       break;
     }
   }
 }
-
-void print_interface() {}

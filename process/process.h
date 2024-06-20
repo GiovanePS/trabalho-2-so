@@ -4,15 +4,15 @@
 #define FRAMEPAGE_SIZE 4            // FRAME SIZE
 
 typedef struct {
-  short int is_free;
-  int pointed_frame;
-} Page_table_t;
+  int page_position;
+  int frame_position;
+} Page_table_entry_t;
 
 typedef struct {
   int pid;
   int size;
-  Page_table_t *page_table;
   char *logical_memory;
+  Page_table_entry_t *page_table;
 } Process_t;
 
 /*

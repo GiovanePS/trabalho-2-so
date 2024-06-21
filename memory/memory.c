@@ -13,7 +13,7 @@ int allocate_frame(char page[FRAME_SIZE]) {
     physical_memory[least_free_frame + offset] = page[offset];
   }
 
-  return least_free_frame;
+  return least_free_frame++;
 }
 
 void free_memory() { free(physical_memory); }

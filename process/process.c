@@ -43,9 +43,12 @@ void init_table_page(Process_t *process) {
       page_auxiliary[offset] = process->logical_memory[i + offset];
     }
     frame_allocated = allocate_frame(page_auxiliary);
-    new_page_table->page_position = i;
-    new_page_table->frame_position = frame_allocated;
-    least_free_frame = least_free_frame + FRAME_SIZE;
+    Page_table_entry_t *entry =
+        (Page_table_entry_t *)malloc(sizeof(Page_table_entry_t));
+    entry->page_position = i;
+    entry->frame_position = frame_allocated;
+    new_page_table[i] = *entry;
+    printf("Entry: %d, %d\n", entry->page_position, entry->frame_position);
   }
 
   process->page_table = new_page_table;
@@ -59,7 +62,14 @@ void show_table_page(int pid) {
     }
   }
 
-  // show table page here
+  int num_pages = cursor->size / PAGE_SIZE;
+  int page, frame;
+  printf("Page <=> Frame\n");
+  for (int i = 0; i < num_pages; i++) {
+    page = cursor->page_table->page_position;
+    frame = cursor->page_table->frame_position;
+    printf("%d    <=> %d\n", page, frame);
+  }
 }
 
 static void include_process(Process_t *new_process) {

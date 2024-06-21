@@ -10,6 +10,8 @@ void init_physical_memory();
 
 int allocate_frame(char page[FRAME_SIZE]);
 
+void show_memory();
+
 /*
  * Free all memory allocated by memory.c
  */

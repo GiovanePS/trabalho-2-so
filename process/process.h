@@ -20,13 +20,6 @@ typedef struct Process_t {
  * @param pid   The arbitrary process id for the new process
  * @param size  The size in bytes of the process
  */
-void create_process(int pid, int size);
-
-/*
- * @param process  The process that memory will be initialized randomly
- */
-void init_logical_memory(Process_t *process);
-
-void init_table_page(Process_t *process);
+int create_process(int pid, int size);
 
 void show_table_page(int pid);

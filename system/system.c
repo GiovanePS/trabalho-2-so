@@ -19,10 +19,10 @@ void init_system() {
     int pid;
     int size;
     switch (option) {
-    case 1:
+    case 1: // Show memory
       printf("Memória sendo vizualizada.\n");
       break;
-    case 2:
+    case 2: // Create process
       printf("Enter a PID number: ");
       scanf("%d", &pid);
       while (1) {
@@ -33,13 +33,15 @@ void init_system() {
                  "than %d bytes.\n",
                  MAX_LOGICAL_MEMORY_SIZE);
         } else {
-          create_process(pid, size);
-          printf("Process created!\n");
+          int processo_criado = create_process(pid, size);
+          if (processo_criado) {
+            printf("Process created!\n");
+          }
           break;
         }
       }
       break;
-    case 3:
+    case 3: // Show page table
       printf("Enter a PID: ");
       scanf("%d", &pid);
       show_table_page(pid);

@@ -20,7 +20,8 @@ void init_system() {
     int size;
     switch (option) {
     case 1: // Show memory
-      printf("Memória sendo vizualizada.\n");
+      printf("Number of free frames: %d\n", total_frames);
+      show_memory();
       break;
     case 2: // Create process
       printf("Enter a PID number: ");

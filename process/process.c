@@ -37,7 +37,7 @@ static void init_logical_memory(Process_t *process) {
   process->logical_memory = (char *)malloc(process->size * sizeof(char));
   for (int i = 0; i < process->size; i++) {
     process->logical_memory[i] =
-        rand() % 95 + 33; // Randomly set only printable chars without space
+        rand() % 25 + 65; // Randomly set only printable chars without space
   }
 }
 
@@ -52,7 +52,7 @@ static void init_table_page(Process_t *process) {
   // Memory allocation
   for (int i = 0; i < num_pages; i++) {
     for (int offset = 0; offset < PAGE_SIZE; offset++) {
-      page_auxiliary[offset] = process->logical_memory[i + offset];
+      page_auxiliary[offset] = process->logical_memory[i * PAGE_SIZE + offset];
     }
     frame_allocated = allocate_frame(page_auxiliary);
     Page_table_entry_t *entry =

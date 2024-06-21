@@ -3,12 +3,12 @@
 #define MAX_LOGICAL_MEMORY_SIZE 32 // MAX PROCESS SIZE
 #define PAGE_SIZE 2
 
-typedef struct {
+typedef struct Page_table_entry_t {
   int page_position;
   int frame_position;
 } Page_table_entry_t;
 
-typedef struct {
+typedef struct Process_t {
   int pid;
   int size;
   char *logical_memory;
@@ -30,5 +30,3 @@ void init_logical_memory(Process_t *process);
 void init_table_page(Process_t *process);
 
 void show_table_page(int pid);
-
-void include_process(Process_t *process);

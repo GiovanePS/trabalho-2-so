@@ -16,16 +16,16 @@ A interface do simulador pode ser por linha de comando (terminal) e deve oferece
 ## Como executar:
 ### 1. Clone o repositório:
 ```
-$ git clone https://github.com/GiovanePS/paging
+git clone https://github.com/GiovanePS/paging
 ```
 
 ### 2. Compile com CMake:
 ```
-$ cd paging
-$ mkdir build
-$ cd build
-$ cmake ..
-$ make
+cd paging && \
+mkdir build && \
+cd build && \
+cmake .. && \
+make
 ```
 
 ### 3. Execute:

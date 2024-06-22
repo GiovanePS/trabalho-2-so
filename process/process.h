@@ -1,20 +1,20 @@
 #pragma once
 
-#define MAX_LOGICAL_MEMORY_SIZE 32 // MAX PROCESS SIZE
-#define PAGE_SIZE 2
+extern int MAX_LOGICAL_MEMORY_SIZE; // MAX PROCESS SIZE
+extern int PAGE_SIZE;
 
-typedef struct Page_table_entry_t {
+typedef struct PageTableEntry {
   int page_position;
   int frame_position;
-} Page_table_entry_t;
+} PageTableEntry;
 
-typedef struct Process_t {
+typedef struct Process {
   int pid;
   int size;
   char *logical_memory;
-  Page_table_entry_t *page_table;
-  struct Process_t *next_process;
-} Process_t;
+  PageTableEntry *page_table;
+  struct Process *next_process;
+} Process;
 
 /*
  * @param pid   The arbitrary process id for the new process

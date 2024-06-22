@@ -1,11 +1,12 @@
 #pragma once
 
-#define PHYSICAL_MEMORY_SIZE 128
-#define FRAME_SIZE 2
+extern int PHYSICAL_MEMORY_SIZE;
+extern int FRAME_SIZE;
 
 extern char *physical_memory;
 extern int last_free_frame;
 extern int total_frames;
+extern int free_frames;
 
 /*
  * Allocates all memory necessary for program.

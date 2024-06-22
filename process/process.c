@@ -3,23 +3,24 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define MAX_PROCESSES PHYSICAL_MEMORY_SIZE / MAX_LOGICAL_MEMORY_SIZE
+int MAX_LOGICAL_MEMORY_SIZE; // MAX PROCESS SIZE
+int PAGE_SIZE;
 
-Process_t *head_process = NULL;
+Process *head_process = NULL;
 
-static void init_logical_memory(Process_t *process);
-static void init_table_page(Process_t *process);
-static void include_process(Process_t *process);
-static Process_t *search_process(int pid);
+static void init_logical_memory(Process *process);
+static void init_table_page(Process *process);
+static void include_process(Process *process);
+static Process *find_process(int pid);
 
 int create_process(int pid, int size) {
-  if (search_process(pid) != NULL) {
+  if (find_process(pid) != NULL) {
     printf("Process with PID %d already created.\n", pid);
     return 0;
   }
 
   int total_pages = size / PAGE_SIZE;
-  Process_t *new_process = (Process_t *)malloc(sizeof(Process_t));
+  Process *new_process = (Process *)malloc(sizeof(Process));
   new_process->pid = pid;
   new_process->size = size;
   new_process->next_process = NULL;
@@ -33,7 +34,7 @@ int create_process(int pid, int size) {
 /*
  * @param process  The process that memory will be initialized randomly
  */
-static void init_logical_memory(Process_t *process) {
+static void init_logical_memory(Process *process) {
   process->logical_memory = (char *)malloc(process->size * sizeof(char));
   for (int i = 0; i < process->size; i++) {
     process->logical_memory[i] =
@@ -41,10 +42,10 @@ static void init_logical_memory(Process_t *process) {
   }
 }
 
-static void init_table_page(Process_t *process) {
+static void init_table_page(Process *process) {
   int num_pages = process->size / PAGE_SIZE;
-  Page_table_entry_t *new_page_table =
-      (Page_table_entry_t *)malloc(num_pages * sizeof(Page_table_entry_t));
+  PageTableEntry *new_page_table =
+      (PageTableEntry *)malloc(num_pages * sizeof(PageTableEntry));
 
   char page_auxiliary[PAGE_SIZE];
   int frame_allocated;
@@ -55,8 +56,7 @@ static void init_table_page(Process_t *process) {
       page_auxiliary[offset] = process->logical_memory[i * PAGE_SIZE + offset];
     }
     frame_allocated = allocate_frame(page_auxiliary);
-    Page_table_entry_t *entry =
-        (Page_table_entry_t *)malloc(sizeof(Page_table_entry_t));
+    PageTableEntry *entry = (PageTableEntry *)malloc(sizeof(PageTableEntry));
     entry->page_position = i;
     entry->frame_position = frame_allocated;
     new_page_table[i] = *entry;
@@ -67,7 +67,7 @@ static void init_table_page(Process_t *process) {
 }
 
 void show_table_page(int pid) {
-  Process_t *process = search_process(pid);
+  Process *process = find_process(pid);
   if (process == NULL) {
     printf("Process with PID %d not found.\n", pid);
     return;
@@ -85,13 +85,13 @@ void show_table_page(int pid) {
   }
 }
 
-static void include_process(Process_t *new_process) {
+static void include_process(Process *new_process) {
   if (head_process == NULL) {
     head_process = new_process;
     return;
   }
 
-  Process_t *cursor = head_process;
+  Process *cursor = head_process;
   while (cursor->next_process != NULL) {
     cursor = cursor->next_process;
   }
@@ -99,13 +99,13 @@ static void include_process(Process_t *new_process) {
   cursor->next_process = new_process;
 }
 
-static Process_t *search_process(int pid) {
+static Process *find_process(int pid) {
   if (head_process == NULL) {
     printf("None process created.\n");
     return NULL;
   }
 
-  Process_t *cursor = head_process;
+  Process *cursor = head_process;
   while (cursor->next_process != NULL) {
     if (cursor->pid == pid) {
       break;

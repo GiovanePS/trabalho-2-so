@@ -1,10 +1,21 @@
+#include "../memory/memory.h"
+#include "../process/process.h"
 #include <stdbool.h>
 #include <stdio.h>
 
 #include "system.h"
 
 void init_system() {
+  printf("Define a physical memory size: ");
+  scanf("%d", &PHYSICAL_MEMORY_SIZE);
+  printf("Define a max logical memory size: ");
+  scanf("%d", &MAX_LOGICAL_MEMORY_SIZE);
+  printf("Define a frame/page size: ");
+  scanf("%d", &FRAME_SIZE);
+  PAGE_SIZE = FRAME_SIZE;
+
   init_physical_memory();
+
   while (1) {
     printf("\n[1] Show memory.\n");
     printf("[2] Create process.\n");
@@ -20,7 +31,7 @@ void init_system() {
     int size;
     switch (option) {
     case 1: // Show memory
-      printf("Number of free frames: %d\n", total_frames);
+      printf("Free frames: %.2f%%\n", (double)free_frames / total_frames * 100);
       show_memory();
       break;
     case 2: // Create process
@@ -33,13 +44,20 @@ void init_system() {
           printf("The size entered exceed memory limit! Enter a size lower "
                  "than %d bytes.\n",
                  MAX_LOGICAL_MEMORY_SIZE);
-        } else {
-          int processo_criado = create_process(pid, size);
-          if (processo_criado) {
-            printf("Process created!\n");
-          }
           break;
         }
+
+        if (free_frames < size / FRAME_SIZE) {
+          printf("There is not enough memory to allocate a process with that "
+                 "size.\n");
+          break;
+        }
+
+        int processo_criado = create_process(pid, size);
+        if (processo_criado) {
+          printf("Process created!\n");
+        }
+        break;
       }
       break;
     case 3: // Show page table

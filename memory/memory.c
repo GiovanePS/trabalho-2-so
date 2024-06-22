@@ -2,11 +2,17 @@
 #include <malloc.h>
 #include <stdio.h>
 
+int PHYSICAL_MEMORY_SIZE;
+int FRAME_SIZE;
+
 char *physical_memory;
 int last_free_frame = 0;
-int total_frames = PHYSICAL_MEMORY_SIZE / FRAME_SIZE;
+int total_frames;
+int free_frames;
 
 void init_physical_memory() {
+  total_frames = PHYSICAL_MEMORY_SIZE / FRAME_SIZE;
+  free_frames = total_frames;
   physical_memory = (char *)malloc(PHYSICAL_MEMORY_SIZE * sizeof(char));
 }
 
@@ -19,7 +25,7 @@ int allocate_frame(char page[FRAME_SIZE]) {
 
   last_free_frame += FRAME_SIZE;
 
-  total_frames--;
+  free_frames--;
   return frame_start / FRAME_SIZE;
 }
 

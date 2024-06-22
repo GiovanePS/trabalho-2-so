@@ -42,6 +42,9 @@ static void init_logical_memory(Process *process) {
   }
 }
 
+/*
+ * Init table page and "populate" the logical memory
+ */
 static void init_table_page(Process *process) {
   int num_pages = process->size / PAGE_SIZE;
   PageTableEntry *new_page_table =
@@ -85,6 +88,9 @@ void show_table_page(int pid) {
   }
 }
 
+/*
+ * Include the process to tail of linked list processes
+ */
 static void include_process(Process *new_process) {
   if (head_process == NULL) {
     head_process = new_process;
@@ -101,7 +107,6 @@ static void include_process(Process *new_process) {
 
 static Process *find_process(int pid) {
   if (head_process == NULL) {
-    printf("None process created.\n");
     return NULL;
   }
 

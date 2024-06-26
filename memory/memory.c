@@ -32,7 +32,12 @@ void init_physical_memory() {
 
 int allocate_frame(char page[FRAME_SIZE]) {
   Node *anterior = get_some_frame_to_allocate();
-  Node *cursor = anterior->next;
+  Node *cursor;
+  if (anterior->next == NULL) {
+    cursor = anterior;
+  } else {
+    cursor = anterior->next;
+  }
   int frame_start = cursor->id_serial;
 
   frame_start = frame_start * FRAME_SIZE;
@@ -46,7 +51,6 @@ int allocate_frame(char page[FRAME_SIZE]) {
     anterior->next = cursor->next;
     free(cursor);
   } else {
-    anterior->next = NULL;
     free(cursor);
   }
 
@@ -54,30 +58,40 @@ int allocate_frame(char page[FRAME_SIZE]) {
 }
 
 static Node *get_some_frame_to_allocate() {
+  Node *cursor;
+  Node *anterior;
   int frame;
+  // If the amount of free frames are greater than 50%, they are randonmly
+  // choosed
   if ((float)free_frames / total_frames >= 0.5) {
 
-    Node *cursor;
-    Node *anterior;
+    // While runs until draw a free frame
     while (1) {
       frame = rand() % free_frames;
       cursor = head_free_frames;
-      while (1) {
+      if (cursor->id_serial == frame) {
+        head_free_frames = head_free_frames->next;
+        cursor->next = NULL;
+        return cursor;
+      }
+
+      while (cursor->next != NULL) {
         if (cursor->next->id_serial == frame) {
+          // Returning the previous frame, to delete the choosed frame
           return cursor;
         }
 
         if (frame < cursor->id_serial) {
           break;
         }
-        anterior = cursor;
+
         cursor = cursor->next;
-        if (cursor->next == NULL) {
-          break;
-        }
       }
     }
+    // Else, return the first free frame
   } else {
+    head_free_frames = head_free_frames->next;
+    return head_free_frames;
   }
 }
 

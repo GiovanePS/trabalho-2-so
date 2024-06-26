@@ -59,11 +59,10 @@ int allocate_frame(char page[FRAME_SIZE]) {
 
 static Node *get_some_frame_to_allocate() {
   Node *cursor;
-  Node *anterior;
   int frame;
   // If the amount of free frames are greater than 50%, they are randonmly
   // choosed
-  if ((float)free_frames / total_frames >= 0.5) {
+  if ((double)free_frames / total_frames >= 0.5) {
 
     // While runs until draw a free frame
     while (1) {
@@ -90,8 +89,10 @@ static Node *get_some_frame_to_allocate() {
     }
     // Else, return the first free frame
   } else {
+    cursor = head_free_frames;
     head_free_frames = head_free_frames->next;
-    return head_free_frames;
+    cursor->next = NULL;
+    return cursor;
   }
 }
 

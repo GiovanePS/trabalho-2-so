@@ -14,19 +14,24 @@ A interface do simulador pode ser por linha de comando (terminal) e deve oferece
 * Visualizar tabela de páginas: esta opção deve exibir o tamanho do processo e a tabela de páginas para o processo identificado pelo número inteiro informado pelo usuário.
 
 ## Como executar:
+
+### Dependências:
+
+`cmake`:
+```
+sudo apt install cmake
+```
+
 ### 1. Clone o repositório:
-```
-git clone https://github.com/GiovanePS/paging
-```
+`git clone https://github.com/GiovanePS/paging`
 
 ### 2. Compile com CMake:
 ```
 cd paging && \
-mkdir build && \
+mkdir -p build && \
 cd build && \
-cmake .. && \
-make
+cmake --build . --config Debug --target all --
 ```
 
 ### 3. Execute:
-`./main.c`
+`./main`

@@ -1,4 +1,4 @@
-# Projeto de criação de um sistema de gerenciamento de memória com paginação paginação para a disciplina de Sistemas Operacionais (INE 5611-2024.01) do curso de Sistemas de Informação.
+# Projeto de criação de um sistema de gerenciamento de memória com paginação para a disciplina de Sistemas Operacionais (INE 5611-2024.01) do curso de Sistemas de Informação.
 
 ## Descrição:
 ### O objetivo aqui é implementar um programa que simula o gerenciamento de memória usando paginação. As instruções foram dadas abaixo:
